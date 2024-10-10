@@ -1,22 +1,16 @@
 import express from "express";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import path from "path";
-import authRouter from "./routes/auth.routes.js";
-import userRouter from "./routes/user.routes.js";
 import cookieParser from "cookie-parser";
 
-dotenv.config();
+import {router} from './routes/index.js'
+import { ENV_VARS } from './config/envVars.js'
+import { connectDB } from './config/db.js'
 
-mongoose
-	.connect(process.env.MONGO)
-	.then(() => {
-		console.log("MongoDB is connected");
-	})
-	.catch((err) => {
-		console.log(err);
-	});
+const PORT = ENV_VARS.PORT
+
+dotenv.config();
 
 const __dirname = path.resolve();
 
@@ -28,9 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-app.use("/api/auth", authRouter);
-app.use("/api/user", userRouter);
+app.use("/api/", router);
 
+// for deployment
 app.use(express.static(path.join(__dirname, "/frontend/dist")));
 app.get("*", (req, res) => {
 	res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
@@ -46,6 +40,7 @@ app.use((err, req, res, next) => {
 	});
 });
 
-app.listen(3000, () => {
-	console.log("Server is running on port 3000!");
+app.listen(PORT, () => {
+	connectDB();
+	console.log('Server listening on http://localhost:', PORT);
 });
