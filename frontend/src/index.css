@@ -1,0 +1,65 @@
+@import url("https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lightgallery.css");
+@import url("https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-zoom.css");
+@import url("https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-video.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	min-height: 100vh;
+}
+
+.gallery {
+	max-width: 900px;
+	margin: 0 auto;
+}
+.gallery__item img {
+	width: 100%;
+}
+
+[data-testid="flowbite-avatar-img"] {
+	object-fit: cover;
+}
+
+[data-testid="flowbite-alert-wrapper"] > div {
+	width: 100%;
+}
+
+@media (min-width: 768px) {
+	nav[aria-label="Sidebar"] > div {
+		overflow: unset;
+	}
+	[data-testid="flowbite-sidebar-items"] {
+		position: sticky;
+		top: 90px;
+	}
+}
+
+.header-button > span {
+	border-radius: 9999px; /* Fully rounded corners */
+}
+
+nav,
+nav > div,
+footer,
+textarea,
+select,
+[data-testid="flowbite-dropdown"],
+input {
+	background-color: #d8e2f3 !important; /* Light background color */
+}
+
+.dark nav,
+.dark nav > div,
+.dark footer,
+.dark textarea,
+.dark select,
+.dark [data-testid="flowbite-dropdown"],
+.dark input {
+	background-color: #010e16 !important; /* Dark background color */
+}
