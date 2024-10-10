@@ -1,30 +1,33 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import DashSidebar from "../components/DashSidebar";
-import { useSelector } from "react-redux";
-import DashUser from "../components/DashUser";
+import Sidebar from '../components/sidebar';
+import Welcome from '../components/Welcome';
+import CourseProgress from '../components/CourseProgress';
+import Calendar from '../components/Calendar';
+import RecentWorksheets from '../components/RecentWorksheets';
+import Tasks from '../components/Task';
 
 const Dashboard = () => {
-	const location = useLocation();
-	const [tab, setTab] = useState("");
-	const { currentUser } = useSelector((state) => state.user);
-
-	useEffect(() => {
-		const urlParams = new URLSearchParams(location.search);
-		const tabFromUrl = urlParams.get("tab");
-		if (tabFromUrl) {
-			setTab(tabFromUrl);
-		}
-	}, [location.search]);
-
-	return (
-		<div className="min-h-screen flex flex-col md:flex-row">
-			<div className="md:w-64">
-				<DashSidebar />
-			</div>
-			{tab === "user" && <DashUser />}
-		</div>
-	);
+  return (
+    <div className="flex h-screen bg-gray-100">
+      <Sidebar />
+      <div className="flex-1 p-6">
+        <div className="grid grid-cols-4 gap-6">
+          <div className="col-span-2">
+            <Welcome />
+            <div className="mt-4"> {/* Add margin top here */}
+              <CourseProgress />
+            </div>
+          </div>
+          <div className="col-span-2">
+            <Calendar />
+          </div>
+        </div>
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <RecentWorksheets />
+        </div>
+		<Tasks />
+      </div>
+    </div>
+  );
 };
 
 export default Dashboard;
